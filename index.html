@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="WB RERA">
-<link rel="manifest" href="/wbrera/manifest.json">
+<link rel="manifest" href="manifest.json">
 <title>Kevala Home — WB RERA Check</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -149,7 +149,7 @@ body.light .card-name{color:var(--text)}
 <header class="header">
   <div class="header-inner">
     <div class="logo">
-<img src="/wbrera/logo.jpg" alt="Kevala Home" style="width:42px;height:42px;border-radius:13px;object-fit:cover" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'">      <div class="logo-mark" id="logoFallback" style="display:none">KH</div>
+<img src="logo.jpg" alt="Kevala Home" style="width:42px;height:42px;border-radius:13px;object-fit:cover" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'">      <div class="logo-mark" id="logoFallback" style="display:none">KH</div>
       <div><div class="logo-name">Kevala Home</div><div class="logo-tag">West Bengal RERA</div></div>
     </div>
     <div class="header-actions">
@@ -260,7 +260,8 @@ const COST_APP_URL='https://kevalahome.github.io/wbcost';
 
 async function loadData(){
   try{
-    const[a,r,c]=await Promise.all([fetch('/wbrera/data/approved.json').then(r=>r.json()),fetch('/wbrera/data/rejected.json').then(r=>r.json()),fetch('/wbrera/data/certificates.json').then(r=>r.json())]);
+    const BASE='https://raw.githubusercontent.com/kevalahome/wbrera/main/data/';
+    const[a,r,c]=await Promise.all([fetch(BASE+'approved.json').then(r=>r.json()),fetch(BASE+'rejected.json').then(r=>r.json()),fetch(BASE+'certificates.json').then(r=>r.json())]);
     PROJECTS_DATA=[...a,...r];CERTIFICATES_DATA=c||[];
     CERTIFICATES_DATA.forEach(c=>{if(c.rera_no)CERT_LOOKUP[c.rera_no.replace(/[\/\-]/g,'').toUpperCase()]=c});
     S.data=PROJECTS_DATA;updateStats();return true;
@@ -407,7 +408,7 @@ function dismissInstall(e){e.stopPropagation();document.getElementById('installB
 
 let toastTmr;
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTmr);toastTmr=setTimeout(()=>t.classList.remove('show'),2500)}
-if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/wbrera/sw.js').catch(()=>{}));
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 
 async function init(){
   const t=localStorage.getItem('kvl_theme');S.darkMode=t!=='light';applyTheme();
