@@ -238,9 +238,9 @@ body.light .card-name{color:var(--text)}
     <div class="info-page">
       <div style="padding:26px 0 16px"><h2 style="font-family:var(--f-display);font-size:var(--fs-2xl);color:var(--text)">📲 Install App</h2><p style="font-size:var(--fs-sm);color:var(--text3);margin-top:6px">Add to your home screen for the best experience — works offline, loads instantly.</p></div>
       <div class="platform-tabs">
-        <button class="ptab active" onclick="switchTab('android')">🤖 Android</button>
-        <button class="ptab" onclick="switchTab('ios')">🍎 iPhone / iPad</button>
-        <button class="ptab" onclick="switchTab('desktop')">💻 Desktop</button>
+        <button class="ptab active" onclick="switchTab('android',this)">🤖 Android</button>
+        <button class="ptab" onclick="switchTab('ios',this)">🍎 iPhone / iPad</button>
+        <button class="ptab" onclick="switchTab('desktop',this)">💻 Desktop</button>
       </div>
       <div class="ptab-content active" id="tab-android">
         <div class="info-section">
@@ -391,7 +391,8 @@ function updateAboutStats(){
   if(act)act.textContent=S.data.filter(p=>p.s==='A').length.toLocaleString('en-IN')+' active';
   if(rev)rev.textContent=S.data.filter(p=>p.s==='R').length.toLocaleString('en-IN')+' revoked';
 }
-function switchTab(t){document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.ptab-content').forEach(c=>c.classList.remove('active'));event.target.classList.add('active');document.getElementById('tab-'+t).classList.add('active')}
+function switchTab(t,el){document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.ptab-content').forEach(c=>c.classList.remove('active'));if(el)el.classList.add('active');document.getElementById('tab-'+t).classList.add('active')}
+function getCertificateForProject(reraNo){
   if(!reraNo)return null;
   const k=reraNo.replace(/[\/\-_\.\s]/g,'').toUpperCase();
   if(CERT_LOOKUP[k])return CERT_LOOKUP[k];
