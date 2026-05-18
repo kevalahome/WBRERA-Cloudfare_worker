@@ -142,6 +142,43 @@ body.light .card-name{color:var(--text)}
 .btn-primary{background:linear-gradient(135deg,var(--purple3),var(--pink2));color:#fff}
 .btn-secondary{background:var(--card2);border:1.5px solid var(--border);color:var(--text2)}
 @media(min-width:500px){.card-grid{grid-template-columns:1fr 1fr 1fr}}
+/* Rich details panel */
+.details-toggle{width:100%;padding:11px 16px;background:none;border:none;border-top:1px solid var(--border);color:var(--purple);font-family:var(--f-body);font-size:var(--fs-sm);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:.3px}
+.details-panel{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
+.details-panel.open{display:block}
+.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+.detail-field{background:var(--bg2);border-radius:var(--radius-xs);padding:10px 12px}
+.detail-field.full{grid-column:1/-1}
+.detail-label{font-size:var(--fs-xs);font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.detail-val{font-size:var(--fs-sm);color:var(--text);line-height:1.4;font-weight:500;word-break:break-word}
+.detail-val a{color:var(--purple);text-decoration:none;font-weight:600}
+.detail-val a:hover{text-decoration:underline}
+.detail-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:rgba(192,132,252,0.12);color:var(--purple);border:1px solid rgba(192,132,252,0.25);margin:2px 2px 0 0}
+/* Install & About pages */
+.info-page{padding:10px 0 20px}
+.info-section{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.info-section h3{font-family:var(--f-display);font-size:var(--fs-xl);color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.info-step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.info-step:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--purple3),var(--pink2));color:#fff;font-weight:800;font-size:var(--fs-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-weight:700;font-size:var(--fs-md);color:var(--text);margin-bottom:3px}
+.step-desc{font-size:var(--fs-sm);color:var(--text3);line-height:1.55}
+.platform-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.ptab{padding:6px 16px;border-radius:100px;border:1.5px solid var(--border);background:var(--bg2);color:var(--text2);font-size:var(--fs-sm);font-weight:600;cursor:pointer}
+.ptab.active{background:rgba(192,132,252,0.15);border-color:var(--purple);color:var(--purple)}
+.ptab-content{display:none}.ptab-content.active{display:block}
+.about-stat{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border)}
+.about-stat:last-child{border-bottom:none}
+.about-stat-ico{font-size:24px;width:36px;text-align:center;flex-shrink:0}
+.about-stat-body{flex:1}
+.about-stat-title{font-weight:700;font-size:var(--fs-md);color:var(--text)}
+.about-stat-sub{font-size:var(--fs-sm);color:var(--text3);margin-top:1px}
+.about-link{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text)}
+.about-link:last-child{border-bottom:none}
+.about-link-ico{font-size:20px;width:30px;text-align:center}
+.about-link-label{flex:1;font-size:var(--fs-md);font-weight:500}
+.about-link-arr{color:var(--text3);font-size:18px}
 </style>
 </head>
 <body>
@@ -197,8 +234,79 @@ body.light .card-name{color:var(--text)}
     <div id="histSec"></div>
   </div>
   <div class="page" id="page-saved"><div style="padding:26px 0 16px"><h2 style="font-family:var(--f-display);font-size:var(--fs-2xl);color:var(--text)">🔖 Saved Projects</h2></div><div id="savedCon"></div></div>
-  <div class="page" id="page-guide"><div style="padding:26px 0 16px"><h2 style="font-family:var(--f-display);font-size:var(--fs-2xl);color:var(--text)">📲 Install</h2></div></div>
-  <div class="page" id="page-about"><div style="padding:26px 0 16px"><h2 style="font-family:var(--f-display);font-size:var(--fs-2xl);color:var(--text)">ℹ️ About</h2></div></div>
+  <div class="page" id="page-guide">
+    <div class="info-page">
+      <div style="padding:26px 0 16px"><h2 style="font-family:var(--f-display);font-size:var(--fs-2xl);color:var(--text)">📲 Install App</h2><p style="font-size:var(--fs-sm);color:var(--text3);margin-top:6px">Add to your home screen for the best experience — works offline, loads instantly.</p></div>
+      <div class="platform-tabs">
+        <button class="ptab active" onclick="switchTab('android')">🤖 Android</button>
+        <button class="ptab" onclick="switchTab('ios')">🍎 iPhone / iPad</button>
+        <button class="ptab" onclick="switchTab('desktop')">💻 Desktop</button>
+      </div>
+      <div class="ptab-content active" id="tab-android">
+        <div class="info-section">
+          <h3>🤖 Android (Chrome)</h3>
+          <div class="info-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open in Chrome</div><div class="step-desc">Visit <strong>wbrera.kevalahome.com</strong> in Google Chrome on your Android phone.</div></div></div>
+          <div class="info-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Tap the menu</div><div class="step-desc">Tap the <strong>⋮ three-dot menu</strong> in the top-right corner of Chrome.</div></div></div>
+          <div class="info-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Add to Home screen</div><div class="step-desc">Tap <strong>"Add to Home screen"</strong> and then tap <strong>Add</strong> to confirm.</div></div></div>
+          <div class="info-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Done!</div><div class="step-desc">The WB RERA app icon will appear on your home screen. Tap it to open — it loads instantly and works offline.</div></div></div>
+        </div>
+      </div>
+      <div class="ptab-content" id="tab-ios">
+        <div class="info-section">
+          <h3>🍎 iPhone / iPad (Safari)</h3>
+          <div class="info-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open in Safari</div><div class="step-desc">Visit <strong>wbrera.kevalahome.com</strong> in Safari. This must be Safari — it won't work in Chrome on iOS.</div></div></div>
+          <div class="info-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Tap Share</div><div class="step-desc">Tap the <strong>Share button</strong> (the box with an arrow pointing up) at the bottom of the screen.</div></div></div>
+          <div class="info-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Add to Home Screen</div><div class="step-desc">Scroll down in the share sheet and tap <strong>"Add to Home Screen"</strong>, then tap <strong>Add</strong>.</div></div></div>
+          <div class="info-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Done!</div><div class="step-desc">The app icon appears on your home screen. It opens full-screen like a native app with no browser bar.</div></div></div>
+        </div>
+      </div>
+      <div class="ptab-content" id="tab-desktop">
+        <div class="info-section">
+          <h3>💻 Desktop (Chrome / Edge)</h3>
+          <div class="info-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open in Chrome or Edge</div><div class="step-desc">Visit <strong>wbrera.kevalahome.com</strong> in Google Chrome or Microsoft Edge.</div></div></div>
+          <div class="info-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Look for the install icon</div><div class="step-desc">Click the <strong>install icon ⊕</strong> in the address bar (right side). If not visible, click the ⋮ menu → <strong>"Install WB RERA Check"</strong>.</div></div></div>
+          <div class="info-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Confirm installation</div><div class="step-desc">Click <strong>Install</strong> in the popup. The app will open as a standalone window.</div></div></div>
+          <div class="info-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Done!</div><div class="step-desc">A shortcut is added to your taskbar and Start menu. The app works even when offline.</div></div></div>
+        </div>
+      </div>
+      <div class="info-section">
+        <h3>⚡ Why install?</h3>
+        <div class="about-stat"><div class="about-stat-ico">🚀</div><div class="about-stat-body"><div class="about-stat-title">Instant load</div><div class="about-stat-sub">Opens in under a second — no browser loading screen.</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">📡</div><div class="about-stat-body"><div class="about-stat-title">Works offline</div><div class="about-stat-sub">Search projects even without an internet connection using cached data.</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">🔔</div><div class="about-stat-body"><div class="about-stat-title">Full-screen experience</div><div class="about-stat-sub">No browser bars — clean, distraction-free interface just like a native app.</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">🔒</div><div class="about-stat-body"><div class="about-stat-title">No app store needed</div><div class="about-stat-sub">No download, no permissions, no tracking. Installs directly from the web.</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page" id="page-about">
+    <div class="info-page">
+      <div style="padding:26px 0 16px"><h2 style="font-family:var(--f-display);font-size:var(--fs-2xl);color:var(--text)">ℹ️ About</h2></div>
+      <div class="info-section">
+        <h3>🏠 Kevala Home</h3>
+        <p style="font-size:var(--fs-sm);color:var(--text3);line-height:1.7;margin-bottom:14px">WB RERA Check is a free tool by <strong style="color:var(--text2)">Kevala Home</strong> to help West Bengal homebuyers instantly verify RERA registration status of real estate projects — before committing any money.</p>
+        <div class="about-stat"><div class="about-stat-ico">🛡️</div><div class="about-stat-body"><div class="about-stat-title">Official Data Source</div><div class="about-stat-sub">All project data is sourced directly from the West Bengal RERA portal (rera.wb.gov.in).</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">🔄</div><div class="about-stat-body"><div class="about-stat-title">Regularly Updated</div><div class="about-stat-sub">The database is scraped and refreshed regularly to reflect the latest registrations and revocations.</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">⚡</div><div class="about-stat-body"><div class="about-stat-title">Fast & Lightweight</div><div class="about-stat-sub">No server, no login, no ads. Data is served directly from GitHub for maximum speed.</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">🆓</div><div class="about-stat-body"><div class="about-stat-title">100% Free</div><div class="about-stat-sub">Always free for homebuyers. No registration required.</div></div></div>
+      </div>
+      <div class="info-section">
+        <h3>📊 Data Coverage</h3>
+        <div class="about-stat"><div class="about-stat-ico">🏗️</div><div class="about-stat-body"><div class="about-stat-title" id="aboutTotal">—</div><div class="about-stat-sub">Total WB RERA registered projects</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">✅</div><div class="about-stat-body"><div class="about-stat-title" id="aboutActive">—</div><div class="about-stat-sub">Currently active registrations</div></div></div>
+        <div class="about-stat"><div class="about-stat-ico">🚨</div><div class="about-stat-body"><div class="about-stat-title" id="aboutRevoked">—</div><div class="about-stat-sub">Revoked registrations</div></div></div>
+      </div>
+      <div class="info-section">
+        <h3>🔗 Links</h3>
+        <a class="about-link" href="https://rera.wb.gov.in" target="_blank"><div class="about-link-ico">🌐</div><div class="about-link-label">Official WB RERA Portal</div><div class="about-link-arr">›</div></a>
+        <a class="about-link" href="https://github.com/kevalahome/wbrera" target="_blank"><div class="about-link-ico">💻</div><div class="about-link-label">Open Source on GitHub</div><div class="about-link-arr">›</div></a>
+        <a class="about-link" href="mailto:info@kevalahome.com"><div class="about-link-ico">📧</div><div class="about-link-label">info@kevalahome.com</div><div class="about-link-arr">›</div></a>
+      </div>
+      <div class="info-section">
+        <h3>⚠️ Disclaimer</h3>
+        <p style="font-size:var(--fs-sm);color:var(--text3);line-height:1.7">This tool is for <strong style="color:var(--text2)">informational purposes only</strong>. Always verify project status directly on the official WB RERA portal before making any financial decision. Kevala Home is not liable for any discrepancies between this app and the official portal.</p>
+      </div>
+    </div>
+  </div>
 </main>
 
 <nav class="bot-nav">
@@ -252,7 +360,7 @@ body.light .card-name{color:var(--text)}
 </div>
 
 <script>
-let PROJECTS_DATA=[],CERTIFICATES_DATA=[],CERT_LOOKUP={};
+let PROJECTS_DATA=[],CERTIFICATES_DATA=[],CERT_LOOKUP={},DETAILS_LOOKUP={};
 const S={data:[],allResults:[],displayCount:20,filter:'all',query:'',bookmarks:[],history:[],darkMode:true,deferredInstall:null};
 const PAGE_SIZE=20,QUICK=['Merlin','Eden City','Shapoorji','PS Group','Hiland','Optima','Tata','Urbana','Crown','Diamond'];
 const PORTAL='https://rera.wb.gov.in/district_project.php?dcode=0';
@@ -261,14 +369,29 @@ const COST_APP_URL='https://kevalahome.github.io/wbcost';
 async function loadData(){
   try{
     const BASE='https://raw.githubusercontent.com/kevalahome/wbrera/main/data/';
-    const[a,r,c]=await Promise.all([fetch(BASE+'approved.json').then(r=>r.json()),fetch(BASE+'rejected.json').then(r=>r.json()),fetch(BASE+'certificates.json').then(r=>r.json())]);
+    const[a,r,c,det]=await Promise.all([fetch(BASE+'approved.json').then(r=>r.json()),fetch(BASE+'rejected.json').then(r=>r.json()),fetch(BASE+'certificates.json').then(r=>r.json()),fetch(BASE+'projects_cleaned.json').then(r=>r.json()).catch(()=>[])]);
     PROJECTS_DATA=[...a,...r];CERTIFICATES_DATA=c||[];
     CERTIFICATES_DATA.forEach(c=>{if(c.rera_no)CERT_LOOKUP[c.rera_no.replace(/[\/\-]/g,'').toUpperCase()]=c});
-    S.data=PROJECTS_DATA;updateStats();return true;
+    (det||[]).forEach(d=>{const k=(d.rera_reg_no||'').replace(/[\/\-_\.\s]/g,'').toUpperCase();if(k)DETAILS_LOOKUP[k]=d});
+    S.data=PROJECTS_DATA;updateStats();updateAboutStats();return true;
   }catch(e){console.warn(e);return false}
 }
 
-function getCertificateForProject(reraNo){
+function getDetails(reraNo){
+  if(!reraNo)return null;
+  const k=reraNo.replace(/[\/\-_\.\s]/g,'').toUpperCase();
+  if(DETAILS_LOOKUP[k])return DETAILS_LOOKUP[k];
+  for(const[kk,v]of Object.entries(DETAILS_LOOKUP)){if(k.includes(kk)||kk.includes(k))return v}
+  return null;
+}
+function toggleDetails(id){const el=document.getElementById('det-'+id);const btn=document.getElementById('detbtn-'+id);if(!el)return;const open=el.classList.toggle('open');btn.textContent=open?'▲ Hide Details':'▼ More Details'}
+function updateAboutStats(){
+  const tot=document.getElementById('aboutTotal'),act=document.getElementById('aboutActive'),rev=document.getElementById('aboutRevoked');
+  if(tot)tot.textContent=S.data.length.toLocaleString('en-IN')+' projects';
+  if(act)act.textContent=S.data.filter(p=>p.s==='A').length.toLocaleString('en-IN')+' active';
+  if(rev)rev.textContent=S.data.filter(p=>p.s==='R').length.toLocaleString('en-IN')+' revoked';
+}
+function switchTab(t){document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.ptab-content').forEach(c=>c.classList.remove('active'));event.target.classList.add('active');document.getElementById('tab-'+t).classList.add('active')}
   if(!reraNo)return null;
   const k=reraNo.replace(/[\/\-_\.\s]/g,'').toUpperCase();
   if(CERT_LOOKUP[k])return CERT_LOOKUP[k];
@@ -331,6 +454,7 @@ function loadMore(){S.displayCount+=PAGE_SIZE;renderResults()}
 
 function cardHTML(p,idx){
   const saved=S.bookmarks.some(b=>b.id===p.id),cert=getCertificateForProject(p.rera);
+  const det=getDetails(p.rera);
   const sc=p.s==='A'?'a':'r',sl=p.s==='A'?'✅ Active':'❌ Revoked';
   const df=p.s==='R'?`<div class="card-field"><div class="field-label">Revoke Date</div><div class="field-val">${p.rev||'—'}</div></div>`:`<div class="card-field"><div class="field-label">Reg. Date</div><div class="field-val">${p.reg||'—'}</div></div>`;
   let certHTML='',certBtn='';
@@ -344,11 +468,26 @@ function cardHTML(p,idx){
     certBtn=`<button class="btn-cert" onclick="viewCert('${esc(cert.rera_no)}')">📄 View RERA Certificate</button>`;
   }
   const statusFlag=p.s==='R'?'<div class="flag flag-danger">🚨 Registration Revoked</div>':'<div class="flag flag-ok">✅ Registered & Active</div>';
+  // Build rich details panel from projects_cleaned.json
+  let detHTML='';
+  if(det){
+    const rows=[];
+    if(det.promoter)rows.push(`<div class="detail-field full"><div class="detail-label">👤 Promoter / Developer</div><div class="detail-val">${det.promoter}</div></div>`);
+    if(det.project_type)rows.push(`<div class="detail-field"><div class="detail-label">🏗️ Project Type</div><div class="detail-val">${det.project_type}</div></div>`);
+    if(det.district)rows.push(`<div class="detail-field"><div class="detail-label">📍 District</div><div class="detail-val">${det.district}</div></div>`);
+    if(det.completion_date)rows.push(`<div class="detail-field"><div class="detail-label">📅 Completion Date</div><div class="detail-val">${det.completion_date}</div></div>`);
+    if(det.procode)rows.push(`<div class="detail-field"><div class="detail-label">🔢 Procode</div><div class="detail-val">${det.procode}</div></div>`);
+    if(det.scraped_at)rows.push(`<div class="detail-field full"><div class="detail-label">🕐 Data Last Fetched</div><div class="detail-val">${new Date(det.scraped_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></div>`);
+    if(det.source_url)rows.push(`<div class="detail-field full"><div class="detail-label">🔗 Official Source</div><div class="detail-val"><a href="${det.source_url}" target="_blank" rel="noopener">View on WB RERA Portal ↗</a></div></div>`);
+    if(det.certificate_url)rows.push(`<div class="detail-field full"><div class="detail-label">📄 Certificate URL</div><div class="detail-val"><a href="${det.certificate_url}" target="_blank" rel="noopener">Download Certificate PDF ↗</a></div></div>`);
+    if(rows.length)detHTML=`<button class="details-toggle" id="detbtn-${esc(p.id)}" onclick="toggleDetails('${esc(p.id)}')">▼ More Details</button><div class="details-panel" id="det-${esc(p.id)}"><div class="details-grid">${rows.join('')}</div></div>`;
+  }
   return `<div class="proj-card${p.s==='R'?' revoked-card':''}">
     <div class="card-top"><div class="card-name-block"><div class="card-name">${hl(p.name,S.query)}</div><div class="card-id">🆔 ${p.id}</div></div><button class="bkmark-btn${saved?' saved':''}" onclick="toggleSave('${esc(p.id)}')">🔖</button></div>
     <div class="card-grid"><div class="card-field span2"><div class="field-label">Registration No.</div><div class="field-val">${hl(p.rera,S.query)}</div></div><div class="card-field"><div class="field-label">Status</div><div class="field-val"><span class="status-badge ${sc}">${sl}</span></div></div><div class="card-field"><div class="field-label">Completion</div><div class="field-val">${p.comp||'—'}</div></div>${df}</div>
     ${certHTML}
     <div class="card-flags">${statusFlag}</div>
+    ${detHTML}
     <div class="card-actions">
       <button class="btn-verify" onclick="window.open('${PORTAL}','_blank')">🛡️ Verify Official</button>
       <button class="btn-share" onclick="shareProject('${esc(p.name)}','${esc(p.rera)}')">📤 Share</button>
